@@ -1,0 +1,16 @@
+{
+  "name": "codelab-bootstrap",
+  "version": "1.0.0",
+  "description": "use nodemon to watch changes on md file, rebuild codelab on saves",
+  "main": "index.js",
+  "scripts": {
+    "watch": "nodemon --watch TetrisCodeLab.md --exec \"claat export -o temp/ TetrisCodeLab.md && npx kill-port 9090 && cd temp/TetrisCodeLab && claat serve\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SolaceDev/solace-dev-codelabs/tree/master/markdown/TetrisCodeLab"
+  },
+  "keywords": [
+    "codelab"
+  ]
+}
