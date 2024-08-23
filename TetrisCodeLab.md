@@ -234,11 +234,203 @@ if event.type == pygame.KEYDOWN:
         anim_limit = 100
 ```
 
+### Re-applying anim limit on key up
+```
+    elif event.key == pygame.K_DOWN:
+                anim_limit = 100
+# NEW CODE HERE
+elif event.type == pygame.KEYUP:
+    if event.key == pygame.K_DOWN:
+        anim_limit = 2000
+```
+
+Making tetrominos random
+```
+import pygame
+import sys
+from copy import deepcopy
+from random import choice, randrange      # NEW CODE
+```
+
+```
+tetrominos = [[pygame.Rect(x + WIDTH // 2, y +1, 1, 1) for x, y in block_pos] for block_pos in tetrominos_pos]
+tetromino_rect = pygame.Rect(0,0, TILE -2, TILE -2)
+tetromino = deepcopy(choice(tetrominos))    # MODIFIED CODE
+```
+
+### STOPING FIGURE at bottom
+
+```
+tetrominos = [[pygame.Rect(x + WIDTH // 2, y +1, 1, 1) for x, y in block_pos] for block_pos in tetrominos_pos]
+tetromino_rect = pygame.Rect(0,0, TILE -2, TILE -2)
+tetromino = deepcopy(choice(tetrominos))
+# NEW CODE HERE
+feild = [[0 for i in range(WIDTH)] for j in range(HEIGHT)]      
+```
+
+In Y movement
 ```
 for i in range(4):
-            tetromino[i].y += 1
-            if not check_borders():
-                anim_limit = 2000
+    tetromino[i].y += 1
+
+    # NEW CODE HERE
+    if not check_borders():
+        tetromino = deepcopy(choice(tetromins))
+        break
+```
+
+modify border check
+```
+def check_borders():
+    if tetromino[i].x < 0 or tetromino[i].x > WIDTH-1:
+        return False
+    elif tetromino[i].y > HEIGHT -1 or feild[tetromino[i].y][tetromino[i].x]:
+        return False
+    return True
+```
+
+In Y movement
+```
+for i in range(4):
+    tetromino[i].y += 1
+    if not check_borders():
+        # NEW CODE HERE
+        for i in range(4):
+            feild[tetromino[i].y][tetromino[i].x] = pygame.Color('white')
+        # NEW CODE END
+        tetromino = deepcopy(choice(tetrominos))
+        break
+```
+
+```
+# Drawing Feild (the bottom the tetrominos that is touching bottom)
+for y, row in enumerate(feild):
+    for x, col in enumerate(row):
+        if col:
+            tetromino_rect.x, tetromino_rect.y = x * TILE, y * TILE
+            pygame.draw.rect(screen, col, tetromino_rect)
+
+pygame.display.update()
+CLOCK.tick(60)
+```
+
+### ROTATING 
+```
+rotate = False      # Create a new var
+
+for event in pygame.event.get(): ...
+    if event.type == pygame.KEYDOWN: ...
+        elif event.key == pygame.K_DOWN:
+            anim_limit = 100
+        # NEW CODE HERE
+        elif event.key == pygame.K_UP:      
+            rotate = True
+```
+
+Rotating logic
+```
+center = tetromino[0]
+tetromino_old = deepcopy(tetromino)
+if rotate:
+    for i in range(4):
+        x = tetromino[i].y - center.y
+        y = tetromino[i].x - center.x
+        tetromino[i].x = center.x - x
+        tetromino[i].y = center.y + y
+        if not check_borders():
+            tetromino = deepcopy(tetromino_old)
+            break
+```
+
+### Removing full lines
+
+```
+line = HEIGHT - 1
+for row in range(HEIGHT - 1, -1, -1):
+    count = 0
+    for i in range(WIDTH):
+        if feild[row][i]:
+            count += 1
+        feild[line][i] = feild[row][i]
+    if count < WIDTH:
+        line -= 1
+```
+Tetris core game done
+
+## make it more good looking
+### Modify game window
+Change screen to a surface and make a new screen
+```
+WIDTH, HEIGHT = 10, 18;
+TILE = 45;
+GAME_RES = (WIDTH * TILE, HEIGHT * TILE)
+RES = 750, 940          # NEW CODE HERE
+```
+
+```
+sc = pygame.display.set_mode(RES)
+screen = pygame.Surface(GAME_RES)
+```
+
+adding backgrounds
+```
+anim_count, anim_speed, anim_limit = 0, 60, 2000
+
+# NEW CODE HERE
+bg = pygame.image.load('img/bg.jpg').convert()
+game_bg = pygame.image.load('img/bg2.jpg').convert()
+
+
+def check_borders():
+```
+
+```
+while True:
+    // screen.fill(pygame.Color("black"))  # REMOVE THIS LINE
+    dir_x = 0
+    rotate = False
+
+    # NEW CODE HERE
+    sc.blit(bg, (0,0))
+    sc.blit(screen, (20,20))
+    screen.blit(game_bg, (0,0))
+```
+
+### Coloring tiles
+add a 5th element for the tiles, new element represent the RGB value of the block shape
+```
+tetrominos_pos = [[(-1,-1),(-2,-1),(0,-1),(1,-1), (0,173,238)], # I
+              [(0,-1),(-1,-1),(-1,0),(0,0), (255,241,0)], # O
+              [(0,0),(-1,-1),(0,-1),(1,0), (236,27,36)], # Z
+              [(0,0),(-1,0),(0,-1),(1,-1), (139,197,63)], # S
+              [(0,0),(-1,0),(1,0),(1,-1), (246, 146, 30)], # L
+              [(0,0),(-1,-1),(-1,0),(1,0), (27, 116, 187)], # J
+              [(0,0),(-1,0),(1,0),(0,-1), (101,45,144)]] # T
+
+# Change block_pos to block_pos[:-1], and add + [block_pos[-1]]
+tetrominos = [
+    [pygame.Rect(x + WIDTH // 2, y + 1, 1, 1) for x, y in block_pos[:-1]] + [block_pos[-1]]
+    for block_pos in tetrominos_pos
+]
+
+```
+
+Adjust code, instead of drawing white use the color value
+Under Y movement
+```
+if not check_borders():
+    for i in range(4):
+        feild[tetromino_old[i].y][tetromino_old[i].x] = tetromino[4]        # MODIFY HERE
+    tetromino = deepcopy(choice(tetrominos))
+    break
+```
+
+Under Drawing Block
+```
+for i in range(4):
+        tetromino_rect.x = tetromino[i].x * TILE
+        tetromino_rect.y = tetromino[i].y * TILE
+        pygame.draw.rect(screen, tetromino[4], tetromino_rect)
 ```
 
 ## Custom Step 2
