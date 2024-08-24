@@ -249,7 +249,7 @@ Making tetrominos random
 import pygame
 import sys
 from copy import deepcopy
-from random import choice, randrange      # NEW CODE
+from random import choice      # NEW CODE
 ```
 
 ```
