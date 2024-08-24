@@ -430,7 +430,226 @@ Under Drawing Block
 for i in range(4):
         tetromino_rect.x = tetromino[i].x * TILE
         tetromino_rect.y = tetromino[i].y * TILE
-        pygame.draw.rect(screen, tetromino[4], tetromino_rect)
+        pygame.draw.rect(screen, tetromino[4], tetromino_rect)      # MODIFY HERE
+```
+
+### Title 
+```
+feild = [[0 for i in range(WIDTH)] for j in range(HEIGHT)]
+
+anim_count, anim_speed, anim_limit = 0, 60, 2000
+
+# NEW CODE HERE
+title_font = pygame.font.Font('HANGTHEDJ.ttf', 65)
+font = pygame.font.Font('HANGTHEDJ.ttf', 45)
+
+title_tetris = title_font.render('TETRIS', True, pygame.Color('darkorange'))
+
+```
+
+### Showing next Block
+Modify tetromino initialization
+```
+tetromino_rect = pygame.Rect(0,0, TILE -2, TILE -2)
+tetromino, next_tetromino = deepcopy(choice(tetrominos)), deepcopy(choice(tetrominos)) # MODIFIED CODE HERE
+```
+
+Modify Code here Under Y movement
+```
+for i in range(4):
+    tetromino[i].y += 1
+    if not check_borders():
+        for i in range(4):
+            feild[tetromino_old[i].y][tetromino_old[i].x] = tetromino[4]
+        tetromino = next_tetromino      # MODIFIED CODE
+        next_tetromino = deepcopy(choice(tetrominos))       # NEW CODE HERE
+        break
+```
+
+Drawing next figure 
+```
+for i in range(4):
+    tetromino_rect.x = next_tetromino[i].x * TILE + 375
+    tetromino_rect.y = next_tetromino[i].y * TILE + 185
+    pygame.draw.rect(sc, next_tetromino[4], tetromino_rect)
+```
+
+### Scores
+Crerating new Variables
+```
+score, lines = 0, 0
+scores = {0:0, 1:100, 2:300, 3:700, 4:1500}
+```
+
+Modify Line Checking
+```
+line, lines = HEIGHT - 1, 0         # MODIFIED CODE HERE
+    for row in range(HEIGHT - 1, -1, -1):
+        count = 0
+```
+
+```
+if count < WIDTH:               
+        line -= 1
+    # NEW CODE HERE
+    else: 
+        anim_speed += 3
+        lines += 1
+```
+Computing the score
+```
+line, lines = HEIGHT - 1, 0
+for row in range(HEIGHT - 1, -1, -1):
+    ...
+
+# NEW CODE HERE
+score += scores[lines]
+```
+
+### add a slight delay when finishing lines
+```
+while True:
+    dir_x = 0
+    rotate = False
+
+    sc.blit(bg, (0,0))
+    sc.blit(screen, (20,20))
+    screen.blit(game_bg, (0,0))
+
+    # NEW CODE HERE
+    for i in range(lines):
+        pygame.time.wait(200)
+    # NEW CODE END
+
+    for event in pygame.event.get():
+```
+
+### Display Scores
+```
+sc.blit(title_tetris, (475, 20))
+# NEW CODE HERE
+sc.blit(title_score, (535, 780))
+sc.blit(font.render(str(score), True, pygame.Color('white')), (550, 840))
+```
+
+## GAME OVER
+### Create a new Record
+create new text to render
+```
+title_tetris = title_font.render('TETRIS', True, pygame.Color('darkorange'))
+title_score = font.render('score:', True, pygame.Color('green'))
+# NEW CODE HERE
+title_HIGH = font.render('High', True, pygame.Color('purple'))
+title_SCORE = font.render('Score:', True, pygame.Color('purple'))     
+```
+
+Display High Score
+```
+sc.blit(title_tetris, (475, 20))
+sc.blit(title_score, (535, 780))
+sc.blit(font.render(str(score), True, pygame.Color('white')), (550, 840))
+sc.blit(title_HIGH, (525, 600))
+
+# NEW CODE HERE
+sc.blit(title_RECORD, (525, 650))
+record = record if int(record) > score else score    # Ternary Operator in Python
+sc.blit(font.render(str(record), True, pygame.Color('gold')), (550, 710))
+```
+
+Create a new function that will get high score from record.txt, if not exist then create a new record.txt with 0
+```
+def get_record():
+    try:
+        with open('record.txt') as f:
+            return f.readline()
+    except FileNotFoundError:
+        with open('record.txt', 'w') as f:
+            f.write('0')
+```
+
+Create new function that will write the highest between current score and record into the record.txt
+```
+def set_record(record, score):
+    rec = max(int(record), score)
+    with open('record', 'w') as f:
+        f.write(str(rec))
+```
+### Using these functions
+```
+while True:
+    record = get_record()       # NEW CODE HERE
+    dir_x = 0
+    rotate = False
+```
+
+```
+# NEW CODE HERE
+for i in range(WIDTH):
+    if feild[0][i]:
+        set_record(record,score)
+    
+pygame.display.update()
+CLOCK.tick(60)
+```
+
+### Handling game over, stop game
+Create new Death Flag
+```
+death_flag = False      # NEW CODE HERE
+
+while True:
+    ...
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        ...
+
+    if death_flag: continue     # NEW CODE HERE
+```
+
+```
+for i in range(WIDTH):
+    if feild[0][i]:
+        set_record(record,score)
+
+        # NEW CODE HERE
+        death_flag = True     
+
+```
+
+### OPTIONALS
+Optional can make a white fade animation when dead
+```
+if feild[0][i]:
+    ...
+    for i_rect in GRID:
+        pygame.draw.rect(screen, pygame.Color('white'), i_rect)
+        sc.blit(screen, (20,20))
+        pygame.display.flip()
+        CLOCK.tick(200)
+```
+
+Optional GAME OVER txt
+```
+title_font = pygame.font.Font('HANGTHEDJ.ttf', 65)
+font = pygame.font.Font('HANGTHEDJ.ttf', 45)
+gameOverFont = pygame.font.Font('HANGTHEDJ.ttf', 100)   # NEW CODE HERE
+
+title_tetris = title_font.render('TETRIS', True, pygame.Color('darkorange'))
+title_score = font.render('score:', True, pygame.Color('green'))
+title_HIGH = font.render('High', True, pygame.Color('purple'))
+title_RECORD = font.render('Score:', True, pygame.Color('purple'))
+
+GameOverTxt = gameOverFont.render('GAME OVER', True, pygame.Color('firebrick1'))       # NEW CODE HERE
+```
+
+```
+for i in range(WIDTH):
+    if feild[0][i]:
+        set_record(record,score)
+        death_flag = True
+        sc.blit(GameOverTxt, (WIDTH * TILE/8, HEIGHT * TILE/2))   # NEW CODE HERE
 ```
 
 ## Custom Step 2
