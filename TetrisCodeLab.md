@@ -552,7 +552,7 @@ sc.blit(title_HIGH, (525, 600))
 
 # NEW CODE HERE
 sc.blit(title_RECORD, (525, 650))
-record = record if int(record) > score else score    # Ternary Operator in Python
+    record = str(max(int(record) if record.isdigit() else 0, score))    # Ternary Operator in Python
 sc.blit(font.render(str(record), True, pygame.Color('gold')), (550, 710))
 ```
 
