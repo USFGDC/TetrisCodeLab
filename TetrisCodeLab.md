@@ -7,7 +7,7 @@ environments: Web
 status: Published
 feedback link: https://github.com/SolaceDev/solace-dev-codelabs/blob/master/markdown/TetrisCodeLab
 
-# Title of codelab goes here
+# Tetris Workshop GameDev Club
 
 ## What you'll learn: Overview
 
@@ -38,20 +38,6 @@ Plain Text followed by bullets
 ### Add an Image or a GIF
 
 ![Soly Image Caption](img/soly.gif)
-
-## What you need: Prerequisites
-
-Duration: 0:07:00
-
-Enter environment setup & prerequisites here
-
-### Add a Link
-Add a link!
-[Example of a Link](https://www.google.com)
-
-### Embed an iframe
-
-![https://codepen.io/tzoght/embed/yRNZaP](https://en.wikipedia.org/wiki/File:Example.jpg "Try Me Publisher")
 
 ## Custom Step 1
 
@@ -652,17 +638,19 @@ for i in range(WIDTH):
         sc.blit(GameOverTxt, (WIDTH * TILE/8, HEIGHT * TILE/2))   # NEW CODE HERE
 ```
 
-## Custom Step 2
-## Custom Step 3
-
 ## Takeaways
 
-Duration: 0:07:00
+Duration: 0:05:00
 
-✅ < Fill IN TAKEAWAY 1>   
-✅ < Fill IN TAKEAWAY 2>   
-✅ < Fill IN TAKEAWAY 3>   
+Thank you for joining us and staying until the end <3. Appologies if this workshop is confusing, however this is most likely our biggest workshop in pure coding stand point.
+
+In the coming workshops we will be doing Gotdot, Pixel art, and Unity.
+
 
 ![Soly Image Caption](img/soly.gif)
 
-Thanks for participating in this codelab! Let us know what you thought in the [Solace Community Forum](https://solace.community/)! If you found any issues along the way we'd appreciate it if you'd raise them by clicking the Report a mistake button at the bottom left of this codelab.
+Additionally for those who don't know this seal is solly. This is an image of solly from 2 years ago, happy and not coding. however solly now is sad and secluded <s>s̶l̶a̶v̶i̶n̶g̶ ̶a̶w̶a̶y̶</s> working for a Triple A game company. Here at the Game Dev Club we miss solly's smile and want to feed him down in <s> ̶t̶h̶e̶ ̶b̶a̶s̶e̶m̶e̶n̶t̶</s> office, however the filthy esports people are taking away our funding to help feed solly. 
+
+So please do not forget to sign in to help solly.
+
+Fun Fact, esports at USF got around $30,000 in funding last year. Did you know one McDonalds meal cost about $7.01, you can feed solly 4,279 times with that much money.
