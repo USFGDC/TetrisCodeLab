@@ -13,33 +13,35 @@ feedback link: https://github.com/SolaceDev/solace-dev-codelabs/blob/master/mark
 
 Duration: 0:05:00
 
-Enter a codelab overview here: what & why and github repo link where you can find related code if applicable
-
-### Info Boxes
-Plain Text followed by green & yellow info boxes 
+Make Tetris in Pygames 
 
 > aside negative
-> This will appear in a yellow info box.
+> Warning, this codelab is more difficult than everything we have done before, and is arguably the hardest we will be doing this semester.
 
-> aside positive
-> This will appear in a green info box.
+### Table of Content
+1. Setting Play Area
+1. Creating Tetrominos (Blocks)
+1. Player Inputs (Moving Sideways)
+1. Player Inputs (Moving down)
+1. Randomizing next Tetromino 
+1. Stoping Figure on bottom
+1. Player Inputs (Rotation)
+1. Removing Full lines (Basically finished with gameplay)
+1. Modifying game window
+1. Adding color to Tetrominos
+1. Title and Next Block
+1. Score and Feel
+1. Game Over Handler (New high score)
+1. <strong> Optionals </strong>
+1. CONGRATS YOU MADE TETRIS 
 
-### Bullets
-Plain Text followed by bullets
-* Hello
-* CodeLab
-* World
 
-### Numbered List
-1. List
-1. Using
-1. Numbers
 
 ### Add an Image or a GIF
 
 ![Soly Image Caption](img/soly.gif)
 
-## Custom Step 1
+## Setting up Pygames and Play Area
 
 ### Step 1
 ```
@@ -85,7 +87,7 @@ for event in pygame.event.get():
     [pygame.draw.rect(screen, (40,40,40), i_rect, 1) for i_rect in GRID]
 ```
 
-### Step 3 Making Blocks
+## Making Tetrominos
 Empty 2D array for Tetromino
 ```
 tetrominos_pos = [[(),(),(),()],
@@ -134,7 +136,7 @@ pygame.display.update()
     CLOCK.tick(60)
 ```
 
-### Step 4 Moving Blocks
+## Player Inputs (Sideways movement)
 ```
 while True:
     screen.fill(pygame.Color("black"))
@@ -186,7 +188,7 @@ for i in range(4):
         break
 ```
 
-### STEP whatever Moving tetromino downwards
+## Making Tetrominos Fall and Downwards input
 ```
 tetrominos = [[pygame.Rect(x + WIDTH // 2, y +1, 1, 1) for x, y in block_pos] for block_pos in tetrominos_pos]
 tetromino_rect = pygame.Rect(0,0, TILE -2, TILE -2)
@@ -230,7 +232,7 @@ elif event.type == pygame.KEYUP:
         anim_limit = 2000
 ```
 
-Making tetrominos random
+## Making tetrominos random
 ```
 import pygame
 import sys
@@ -244,7 +246,7 @@ tetromino_rect = pygame.Rect(0,0, TILE -2, TILE -2)
 tetromino = deepcopy(choice(tetrominos))    # MODIFIED CODE
 ```
 
-### STOPING FIGURE at bottom
+### Stoping Figures that has hit bottom 
 
 ```
 tetrominos = [[pygame.Rect(x + WIDTH // 2, y +1, 1, 1) for x, y in block_pos] for block_pos in tetrominos_pos]
@@ -300,7 +302,7 @@ pygame.display.update()
 CLOCK.tick(60)
 ```
 
-### ROTATING 
+## Player Input (Rotating Tetrominos)  
 ```
 rotate = False      # Create a new var
 
@@ -328,7 +330,7 @@ if rotate:
             break
 ```
 
-### Removing full lines
+## Removing full lines (Game play basically finished)
 
 ```
 line = HEIGHT - 1
@@ -343,7 +345,7 @@ for row in range(HEIGHT - 1, -1, -1):
 ```
 Tetris core game done
 
-## make it more good looking
+## Make it more good looking
 ### Modify game window
 Change screen to a surface and make a new screen
 ```
@@ -382,7 +384,7 @@ while True:
     screen.blit(game_bg, (0,0))
 ```
 
-### Coloring tiles
+## Coloring Tetrominos
 add a 5th element for the tiles, new element represent the RGB value of the block shape
 ```
 tetrominos_pos = [[(-1,-1),(-2,-1),(0,-1),(1,-1), (0,173,238)], # I
@@ -419,7 +421,9 @@ for i in range(4):
         pygame.draw.rect(screen, tetromino[4], tetromino_rect)      # MODIFY HERE
 ```
 
-### Title 
+## Title and Showing Next Block
+
+### Title
 ```
 feild = [[0 for i in range(WIDTH)] for j in range(HEIGHT)]
 
@@ -460,6 +464,8 @@ for i in range(4):
     pygame.draw.rect(sc, next_tetromino[4], tetromino_rect)
 ```
 
+## Score and Feel
+
 ### Scores
 Crerating new Variables
 ```
@@ -492,7 +498,7 @@ for row in range(HEIGHT - 1, -1, -1):
 score += scores[lines]
 ```
 
-### add a slight delay when finishing lines
+### Add a slight delay when clearing lines for a nicer feel
 ```
 while True:
     dir_x = 0
@@ -604,7 +610,7 @@ for i in range(WIDTH):
 
 ```
 
-### OPTIONALS
+## OPTIONALS
 Optional can make a white fade animation when dead
 ```
 if feild[0][i]:
@@ -638,7 +644,7 @@ for i in range(WIDTH):
         sc.blit(GameOverTxt, (WIDTH * TILE/8, HEIGHT * TILE/2))   # NEW CODE HERE
 ```
 
-## Takeaways
+## CONGRATS YOU MADE TETRIS 
 
 Duration: 0:05:00
 
