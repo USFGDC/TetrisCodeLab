@@ -209,7 +209,7 @@ anim_count += anim_speed
             tetromino[i].y += 1
 ```
 
-adding increased drop speed
+On Down arrow down add increased drop speed
 ```
 if event.type == pygame.KEYDOWN:
     if event.key == pygame.K_LEFT:
@@ -256,7 +256,7 @@ tetromino = deepcopy(choice(tetrominos))
 feild = [[0 for i in range(WIDTH)] for j in range(HEIGHT)]      
 ```
 
-In Y movement
+In Y movement Part of Code
 ```
 for i in range(4):
     tetromino[i].y += 1
@@ -277,7 +277,7 @@ def check_borders():
     return True
 ```
 
-In Y movement
+In Y movement Part of Code
 ```
 for i in range(4):
     tetromino[i].y += 1
@@ -315,7 +315,7 @@ for event in pygame.event.get(): ...
             rotate = True
 ```
 
-Rotating logic
+### Rotating logic
 ```
 center = tetromino[0]
 tetromino_old = deepcopy(tetromino)
@@ -343,7 +343,7 @@ for row in range(HEIGHT - 1, -1, -1):
     if count < WIDTH:
         line -= 1
 ```
-Tetris core game done
+### Tada Tetris core game done
 
 ## Make it more good looking
 ### Modify game window
@@ -659,4 +659,4 @@ Additionally for those who don't know this seal is solly. This is an image of so
 
 So please do not forget to sign in to help solly.
 
-Fun Fact, esports at USF got around $30,000 in funding last year. Did you know one McDonalds meal cost about $7.01, you can feed solly 4,279 times with that much money.
+Fun Fact, Valorant Club Alone at USF got around $30,000 in funding last year. Did you know one McDonalds meal cost about $7.01, you can feed solly 4,279 times with that much money.
