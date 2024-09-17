@@ -11,8 +11,6 @@ feedback link: https://github.com/SolaceDev/solace-dev-codelabs/blob/master/mark
 
 ## What you'll learn: Overview
 
-Duration: 0:05:00
-
 Make Tetris in Pygames 
 
 > aside negative
@@ -37,11 +35,13 @@ Make Tetris in Pygames
 
 
 
-### Add an Image or a GIF
+### Image of Final product
 
-![Soly Image Caption](img/soly.gif)
+![Soly Image Caption](img/tetrisfinal.png)
 
 ## Setting up Pygames and Play Area
+
+Duration: 0:07:00
 
 ### Step 1
 ```
@@ -88,6 +88,9 @@ for event in pygame.event.get():
 ```
 
 ## Making Tetrominos
+
+Duration: 0:09:00
+
 Empty 2D array for Tetromino
 ```
 tetrominos_pos = [[(),(),(),()],
@@ -135,8 +138,12 @@ for i in range(4):
 pygame.display.update()
     CLOCK.tick(60)
 ```
+![Tetris Shapes](img/7-Tetris-shapes.png)
 
 ## Player Inputs (Sideways movement)
+
+Duration: 0:10:00
+
 ```
 while True:
     screen.fill(pygame.Color("black"))
@@ -160,7 +167,7 @@ while True:
         # NEW CODE END
 ```
 
-### Step 5 adding borders
+### Adding borders
 Add new function
 ```
 def check_borders():
@@ -189,6 +196,9 @@ for i in range(4):
 ```
 
 ## Making Tetrominos Fall and Downwards input
+
+Duration: 0:09:00
+
 ```
 tetrominos = [[pygame.Rect(x + WIDTH // 2, y +1, 1, 1) for x, y in block_pos] for block_pos in tetrominos_pos]
 tetromino_rect = pygame.Rect(0,0, TILE -2, TILE -2)
@@ -233,6 +243,9 @@ elif event.type == pygame.KEYUP:
 ```
 
 ## Making tetrominos random
+
+Duration: 0:13:00
+
 ```
 import pygame
 import sys
@@ -303,6 +316,9 @@ CLOCK.tick(60)
 ```
 
 ## Player Input (Rotating Tetrominos)  
+
+Duration: 0:07:00
+
 ```
 rotate = False      # Create a new var
 
@@ -332,6 +348,8 @@ if rotate:
 
 ## Removing full lines (Game play basically finished)
 
+Duration: 0:01:00
+
 ```
 line = HEIGHT - 1
 for row in range(HEIGHT - 1, -1, -1):
@@ -346,6 +364,9 @@ for row in range(HEIGHT - 1, -1, -1):
 ### Tada Tetris core game done
 
 ## Make it more good looking
+
+Duration: 0:08:00
+
 ### Modify game window
 Change screen to a surface and make a new screen
 ```
@@ -385,6 +406,9 @@ while True:
 ```
 
 ## Coloring Tetrominos
+
+Duration: 0:09:00
+
 add a 5th element for the tiles, new element represent the RGB value of the block shape
 ```
 tetrominos_pos = [[(-1,-1),(-2,-1),(0,-1),(1,-1), (0,173,238)], # I
@@ -422,6 +446,8 @@ for i in range(4):
 ```
 
 ## Title and Showing Next Block
+
+Duration: 0:08:00
 
 ### Title
 ```
@@ -465,6 +491,8 @@ for i in range(4):
 ```
 
 ## Score and Feel
+
+Duration: 0:09:00
 
 ### Scores
 Crerating new Variables
@@ -525,6 +553,9 @@ sc.blit(font.render(str(score), True, pygame.Color('white')), (550, 840))
 ```
 
 ## GAME OVER
+
+Duration: 0:09:00
+
 ### Create a new Record
 create new text to render
 ```
@@ -611,6 +642,9 @@ for i in range(WIDTH):
 ```
 
 ## OPTIONALS
+
+Duration: 0:07:00
+
 Optional can make a white fade animation when dead
 ```
 if feild[0][i]:
@@ -645,8 +679,6 @@ for i in range(WIDTH):
 ```
 
 ## CONGRATS YOU MADE TETRIS 
-
-Duration: 0:05:00
 
 Thank you for joining us and staying until the end <3. Appologies if this workshop is confusing, however this is most likely our biggest workshop in pure coding stand point.
 
