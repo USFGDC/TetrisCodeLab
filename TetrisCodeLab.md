@@ -41,52 +41,22 @@ Make Tetris in Pygames
 
 ## Setting up Pygames and Play Area
 
-Duration: 0:07:00
+Duration: 0:05:00
 
-### Step 1
-```
-import pygame
-import sys
-from copy import deepcopy
+### Download stuff from our github
+[Click here to download stuff](https://github.com/GameDevClubUSF/GameDevClubUSF.github.io/raw/refs/heads/main/TetrisCodeLab/Tetris%20Imports.zip)
+<br>This includes:
+* Pygame baseplate (work in this file)
+* Background images
+* HANGTHEDJ font 
 
-WIDTH, HEIGHT = 10, 20;
-TILE = 45;
-GAME_RES = (WIDTH * TILE, HEIGHT * TILE)
-CLOCK = pygame.time.Clock()
+### Double check that python and pygames is installed on your machine
+Check Python<br>
+For Windows: `py --version` <br>
+For Mac: `python3 --version`
 
-pygame.init()
-screen = pygame.display.set_mode(GAME_RES)
-pygame.display.set_caption("Tetris")
-
-while True:
-    screen.fill(pygame.Color("black"))
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-    pygame.display.update()
-    CLOCK.tick(60)
-```
-
-### Step 2 making grid
-```
-pygame.init()
-screen = pygame.display.set_mode(GAME_RES)
-pygame.display.set_caption("Tetris")
-
-# NEW CODE HERE
-GRID = [pygame.Rect(x * TILE, y * TILE, TILE, TILE) for x in range(WIDTH) for y in range(HEIGHT)] 
-```
-
-```
-for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-    # NEW CODE HERE
-    [pygame.draw.rect(screen, (40,40,40), i_rect, 1) for i_rect in GRID]
-```
+Check for pygames
+Run in terminal: `pip show pygame`
 
 ## Making Tetrominos
 
