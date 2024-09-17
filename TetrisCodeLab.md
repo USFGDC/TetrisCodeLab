@@ -52,6 +52,7 @@ from copy import deepcopy
 WIDTH, HEIGHT = 10, 20;
 TILE = 45;
 GAME_RES = (WIDTH * TILE, HEIGHT * TILE)
+CLOCK = pygame.time.Clock()
 
 pygame.init()
 screen = pygame.display.set_mode(GAME_RES)
